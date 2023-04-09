@@ -3,12 +3,12 @@ package com.example.javaassignment.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "participant_detail_event_registration", schema = "java_assignment_q3", catalog = "")
+@Table(name = "participant_detail_event_registration", schema = "java_assignment_q3")
 public class ParticipantDetailEventRegistration {
-    @Basic
+    @Id
     @Column(name = "participant_detail_id")
     private int participantDetailId;
-    @Basic
+    @Id
     @Column(name = "event_registration_id")
     private int eventRegistrationId;
     @ManyToOne
