@@ -23,10 +23,10 @@ public class ParticipantDetails {
     @Column(name = "phone_number")
     private String phoneNumber;
     @Basic
-    @Column(name = "address_id")
+    @Column(name = "address_id",insertable = false,updatable = false)
     private int addressId;
     @Basic
-    @Column(name = "area_id")
+    @Column(name = "area_id",insertable = false,updatable = false)
     private int areaId;
     @OneToMany(mappedBy = "participantDetailsByParticipantDetailId")
     private Collection<ParticipantDetailEventRegistration> participantDetailEventRegistrationsByParticipantDetailId;

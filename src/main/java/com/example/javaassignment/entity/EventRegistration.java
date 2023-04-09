@@ -26,7 +26,7 @@ public class EventRegistration {
     @Column(name = "number_of_paper")
     private String numberOfPaper;
     @Basic
-    @Column(name = "event_id")
+    @Column(name = "event_id",updatable = false,insertable = false)
     private int eventId;
     @ManyToOne
     @JoinColumn(name = "event_id", referencedColumnName = "event_id", nullable = false)
