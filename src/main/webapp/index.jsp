@@ -6,6 +6,15 @@
   Time: 2:35 pm
   To change this template use File | Settings | File Templates.
 --%>
+
+<%@ page import = "com.example.javaassignment.entity.Events" %>
+<%@ page import = "com.example.javaassignment.repository.EventRepository" %>
+
+<%=  EventRepository.getValidEvents()
+
+
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 

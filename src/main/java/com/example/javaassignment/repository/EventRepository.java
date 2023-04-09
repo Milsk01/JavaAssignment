@@ -9,6 +9,10 @@ public class EventRepository {
 
     public static void main(String[] args) {
 
+
+    }
+
+    public static List getValidEvents(){
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         List event =entityManager.createQuery("Select e from Events e").getResultList();
@@ -17,5 +21,7 @@ public class EventRepository {
 
         entityManager.close();
         entityManagerFactory.close();
+
+        return event;
     }
 }
