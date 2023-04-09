@@ -29,6 +29,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Registration Page</title>
     <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="resources/js/main.js"></script>
 
@@ -45,24 +46,24 @@
                             <h2 class="text-center mb-4">Conference Registration Form</h2>
                             <p class="text-center mb-4">Please fill the form below. We'll contact you as soon as possible.</p>
                         </div>
-                        <form method="post">
+                        <form method="post" >
                             <div class="row justify-content-evenly">
                                 <div class="col-md-12 col-lg-12 col-xl-5 col-xxl-5 offset-lg-0 offset-xxl-0" style="margin-right: 15px;">
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><strong class="form-label">Full Name</strong></div>
+                                            <div class="col" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><strong class="form-label required">Full Name</strong></div>
                                         </div>
                                         <div class="row">
-                                            <div class="col"><input class="form-control" type="text" name="firstName"><small class="form-text text-muted">First Name</small></div>
-                                            <div class="col"><input class="form-control" type="text" name=""><small class="text-muted form-text" name="lastName">Last Name</small></div>
+                                            <div class="col"><input class="form-control" type="text" name="firstName" id="validationDefault01" required/><small class="form-text text-muted">First Name</small></div>
+                                            <div class="col"><input required class="form-control " type="text" name="lastName" required /><small class="text-muted form-text" >Last Name</small></div>
                                         </div>
                                     </div>
                                     <div style="padding-top: 0px;margin-top: 30px;">
                                         <div class="row">
-                                            <div class="col-xxl-12" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><label class="col-form-label" style="font-weight: bold;">Area</label></div>
+                                            <div class="col-xxl-12" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><label class="col-form-label required" style="font-weight: bold;">Area</label></div>
                                         </div>
                                         <div class="row">
-                                            <div class="col"><select class="form-select" name="area">
+                                            <div class="col"><select required class="form-select" name="area">
                                                 <optgroup label="This is a group">
                                                     <option value="12" selected="">Please Select </option>
                                                     <option value="13">This is item 2</option>
@@ -73,52 +74,54 @@
                                     </div>
                                     <div style="padding-top: 0px;margin-top: 30px;">
                                         <div class="row">
-                                            <div class="col" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><strong>Address</strong></div>
+                                            <div class="col" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><strong class="required">Address</strong></div>
                                         </div>
                                         <div class="row">
-                                            <div class="col"><input class="form-control" type="text" style="margin-bottom: 0px;" name="addressLine1"><small class="form-text">Street Address Line 1</small><input class="form-control" type="text" style="padding-top: 6px;margin-top: 15px;margin-bottom: 0px;" name="addressLine2"><small class="form-text">Street Address Line 2</small></div>
+                                            <div class="col">
+                                                <input required class="form-control" type="text" style="margin-bottom: 0px;" name="addressLine1"><small class="form-text">Street Address Line 1</small>
+                                                <input required class="form-control" type="text" style="padding-top: 6px;margin-top: 15px;margin-bottom: 0px;" name="addressLine2"><small class="form-text">Street Address Line 2</small></div>
                                         </div>
                                         <div class="row">
-                                            <div class="col"><input class="form-control" type="text" style="margin-top: 15px;" name="city"><small class="form-text">City</small></div>
-                                            <div class="col"><input class="form-control" type="text" style="margin-top: 15px;" name="state"><small class="form-text">State/Province</small></div>
+                                            <div class="col"><input required class="form-control" type="text" style="margin-top: 15px;" name="city"><small class="form-text">City</small></div>
+                                            <div class="col"><input required class="form-control" type="text" style="margin-top: 15px;" name="state"><small class="form-text">State/Province</small></div>
                                         </div>
                                         <div class="row">
-                                            <div class="col"><input class="form-control" type="text" style="margin-top: 15px;" name="postalCode"><small class="form-text">Postal/Zip Code</small></div>
-                                            <div class="col"><input class="form-control" type="search" style="margin-top: 15px;" name="country"><small class="form-text">Country</small></div>
+                                            <div class="col"><input required class="form-control" type="text" style="margin-top: 15px;" name="postalCode"><small class="form-text">Postal/Zip Code</small></div>
+                                            <div class="col"><input required class="form-control" type="search" style="margin-top: 15px;" name="country"><small class="form-text">Country</small></div>
                                         </div>
                                     </div>
                                     <div style="padding-top: 0px;margin-top: 30px;padding-bottom: 0px;">
                                         <div class="row">
-                                            <div class="col" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><strong>Email</strong></div>
+                                            <div class="col" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><strong class="required">Email</strong></div>
                                         </div>
                                         <div class="row">
-                                            <div class="col"><input class="form-control" type="email" style="margin-bottom: 0px;" name="email"><small class="form-text">example@example.com</small></div>
+                                            <div class="col"><input required class="form-control" type="email" style="margin-bottom: 0px;" name="email"><small class="form-text">example@example.com</small></div>
                                         </div>
                                     </div>
                                     <div style="padding-top: 0px;margin-top: 30px;margin-bottom: 30px;">
                                         <div class="row">
-                                            <div class="col" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><strong>Phone Number</strong></div>
+                                            <div class="col" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><strong class="required">Phone Number</strong></div>
                                         </div>
                                         <div class="row">
-                                            <div class="col"><input class="form-control" type="tel" placeholder="(000) 000-0000" name="phone"></div>
+                                            <div class="col"><input required class="form-control" type="tel" placeholder="(000) 000-0000" name="phone"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-lg-12 col-xl-6 col-xxl-6" style="margin-left: 0px;">
                                     <div>
                                         <div class="row">
-                                            <div class="col-lg-11" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><strong>First time to attend this conference ?</strong></div>
+                                            <div class="col-lg-11" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><strong class="required">First time to attend this conference ?</strong></div>
                                         </div>
                                         <div class="row">
                                             <div class="col-xl-12">
-                                                <div class="form-check" value="1"><input class="form-check-input"  name="isFirstTime" type="radio" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Yes</label></div>
-                                                <div class="form-check"  value="0"><input class="form-check-input" name="isFirstTime" type="radio" id="formCheck-2"><label class="form-check-label" for="formCheck-2">No</label></div>
+                                                <div class="form-check" value="1"><input required class="form-check-input"  name="isFirstTime" type="radio" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Yes</label></div>
+                                                <div class="form-check"  value="0"><input required class="form-check-input" name="isFirstTime" type="radio" id="formCheck-2"><label class="form-check-label" for="formCheck-2">No</label></div>
                                             </div>
                                         </div>
                                     </div>
                                     <div style="padding-top: 0px;margin-top: 30px;">
                                         <div class="row">
-                                            <div class="col" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><strong>I will attend :</strong></div>
+                                            <div class="col" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><strong class="required" >I will attend :</strong></div>
                                         </div>
                                         <div class="row">
                                             <div class="col-xl-12">
@@ -136,7 +139,7 @@
                                     </div>
                                     <div style="padding-top: 0px;margin-top: 30px;">
                                         <div class="row">
-                                            <div class="col-lg-7" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><strong>What's your T-Shirt size?</strong><select class="form-select">
+                                            <div class="col-lg-7" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><strong class="required">What's your T-Shirt size?</strong><select class="form-select">
                                                 <optgroup label="T-Shirt Size">
                                                     <option value="XS" selected="">XS</option>
                                                     <option value="S">S</option>
@@ -149,7 +152,7 @@
                                     </div>
                                     <div style="padding-top: 0px;margin-top: 30px;">
                                         <div class="row">
-                                            <div class="col" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><strong>Registration Fee</strong></div>
+                                            <div class="col" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><strong class="required">Registration Fee</strong></div>
                                         </div>
                                         <div class="row" style="margin-bottom: 22px;">
                                             <div class="col-lg-10 col-xl-9 col-xxl-9">
@@ -157,7 +160,7 @@
                                                     <div class="col-xl-11">
                                                         <div class="row">
                                                             <div class="col-xl-11 col-xxl-10">
-                                                                <div class="form-check"><input class="form-check-input" name="isStudent" type="radio" id="formCheck-6"><label class="form-check-label" for="formCheck-6" style="font-weight: bold;">Conference Registration Fee ( Normal Participant )</label></div>
+                                                                <div class="form-check"><input required class="form-check-input" name="isStudent" type="radio" id="formCheck-6"><label class="form-check-label" for="formCheck-6" style="font-weight: bold;">Conference Registration Fee ( Normal Participant )</label></div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
