@@ -6,23 +6,32 @@
   Time: 2:35 pm
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ page import = "com.example.javaassignment.entity.Events" %>
 <%@ page import = "com.example.javaassignment.repository.EventRepository" %>
+<%@ page import="java.util.List" %>
 
-<%=  EventRepository.getValidEvents()
+<% List events = EventRepository.getValidEvents();
+    request.setAttribute("eventList", events );
+
 
 
 %>
 
 <!DOCTYPE html>
+
+
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Registration Page</title>
-    <link rel="stylesheet" href="resources/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="resources/js/main.js"></script>
+
 </head>
 
 <body>
@@ -102,8 +111,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-xl-12">
-                                                <div class="form-check" name="isFirstTime" value="1"><input class="form-check-input" type="radio" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Yes</label></div>
-                                                <div class="form-check" name="isFirstTime" value="0"><input class="form-check-input" type="radio" id="formCheck-2"><label class="form-check-label" for="formCheck-2">No</label></div>
+                                                <div class="form-check" value="1"><input class="form-check-input"  name="isFirstTime" type="radio" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Yes</label></div>
+                                                <div class="form-check"  value="0"><input class="form-check-input" name="isFirstTime" type="radio" id="formCheck-2"><label class="form-check-label" for="formCheck-2">No</label></div>
                                             </div>
                                         </div>
                                     </div>
@@ -113,19 +122,27 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-xl-12">
-                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-3"><label class="form-check-label" for="formCheck-3">Event 1</label></div>
-                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-4"><label class="form-check-label" for="formCheck-4">Event 2</label></div>
-                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-5"><label class="form-check-label" for="formCheck-5">Event 3</label></div>
+
+                                                <c:forEach var = "event" items="${eventList}">
+                                                    <div class="form-check"><input class="form-check-input"
+                                                                                   type="checkbox" id=<c:out value="${event.getEventId()}"/>
+                                                    />
+                                                        <label class="form-check-label" for=
+                                                                <c:out value="${event.getEventId()}"/>>
+                                                            <c:out value = "${event.getEventName()} - ${event.getEventDate()} "/></label></div>
+                                                </c:forEach>
                                             </div>
                                         </div>
                                     </div>
                                     <div style="padding-top: 0px;margin-top: 30px;">
                                         <div class="row">
                                             <div class="col-lg-7" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><strong>What's your T-Shirt size?</strong><select class="form-select">
-                                                <optgroup label="This is a group">
-                                                    <option value="12" selected="">This is item 1</option>
-                                                    <option value="13">This is item 2</option>
-                                                    <option value="14">This is item 3</option>
+                                                <optgroup label="T-Shirt Size">
+                                                    <option value="XS" selected="">XS</option>
+                                                    <option value="S">S</option>
+                                                    <option value="M">M</option>
+                                                    <option value="L">l</option>
+                                                    <option value="XL">Xl</option>
                                                 </optgroup>
                                             </select></div>
                                         </div>
@@ -140,16 +157,16 @@
                                                     <div class="col-xl-11">
                                                         <div class="row">
                                                             <div class="col-xl-11 col-xxl-10">
-                                                                <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-6"><label class="form-check-label" for="formCheck-6" style="font-weight: bold;">Conference Registration Fee ( Normal Participant )</label></div>
+                                                                <div class="form-check"><input class="form-check-input" name="isStudent" type="radio" id="formCheck-6"><label class="form-check-label" for="formCheck-6" style="font-weight: bold;">Conference Registration Fee ( Normal Participant )</label></div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-10 col-xl-7 col-xxl-6 my-auto"><span># of papers</span></div>
                                                             <div class="col-lg-2 col-xl-5 col-xxl-3"><select class="form-select">
-                                                                <optgroup label="This is a group">
-                                                                    <option value="12" selected="">1</option>
-                                                                    <option value="2">This is item 2</option>
-                                                                    <option value="14">3</option>
+                                                                <optgroup label="Number of papers">
+                                                                    <option value="1" selected="">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
                                                                 </optgroup>
                                                             </select></div>
                                                         </div>
@@ -164,16 +181,16 @@
                                                     <div class="col-xl-11">
                                                         <div class="row">
                                                             <div class="col-xl-11 col-xxl-10">
-                                                                <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-7"><label class="form-check-label" for="formCheck-7" style="font-weight: bold;">Conference Registration Fee ( Student Participant )</label></div>
+                                                                <div class="form-check"><input class="form-check-input" name="isStudent" type="radio" id="formCheck-7"><label class="form-check-label" for="formCheck-7" style="font-weight: bold;">Conference Registration Fee ( Student Participant )</label></div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-10 col-xl-7 col-xxl-6 my-auto"><span># of papers</span></div>
                                                             <div class="col-lg-2 col-xl-5 col-xxl-3"><select class="form-select">
-                                                                <optgroup label="This is a group">
-                                                                    <option value="12" selected="">1</option>
-                                                                    <option value="2">This is item 2</option>
-                                                                    <option value="14">3</option>
+                                                                <optgroup label="Number of papers">
+                                                                    <option value="1" selected="">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
                                                                 </optgroup>
                                                             </select></div>
                                                         </div>
@@ -186,10 +203,14 @@
                                     <hr>
                                     <div>
                                         <div class="row" style="margin-bottom: 24px;">
-                                            <div class="col-12 d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-between align-items-xl-center"><button class="btn btn-primary d-flex" type="button">Check The Total Amount</button><span>Total&nbsp; 0.00 RM</span></div>
+                                            <div class="col-12 d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-between align-items-xl-center"><button class="btn btn-primary d-flex" type="button">Check The Total Amount</button><span id="totalAmount">Total&nbsp; 0.00 RM</span></div>
                                         </div>
                                         <div class="row">
-                                            <div class="col d-lg-flex justify-content-between align-items-lg-center" style="display: inline-flex;"><button class="btn btn-primary" type="button">Search Tool</button><input class="btn btn-success" type="submit"><button class="btn btn-secondary" type="button">Reset</button></div>
+                                            <div class="col d-lg-flex justify-content-between align-items-lg-center" style="display: inline-flex;">
+                                                <a href="searchPage.jsp"><button class="btn btn-primary" type="button" >Search Tool</button></a>
+                                                <input class="btn btn-success" type="submit">
+                                                <input class="btn btn-secondary" type="reset">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -201,7 +222,6 @@
         </div>
     </div>
 </section>
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
 
 </html>
