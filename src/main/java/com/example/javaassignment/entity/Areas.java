@@ -7,20 +7,20 @@ import java.util.Collection;
 public class Areas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "area_id")
-    private int areaId;
+    @Column(name = "id")
+    private int id;
     @Basic
     @Column(name = "area_name")
     private String areaName;
     @OneToMany(mappedBy = "areasByAreaId")
-    private Collection<ParticipantDetails> participantDetailsByAreaId;
+    private Collection<Participants> participantsById;
 
-    public int getAreaId() {
-        return areaId;
+    public int getId() {
+        return id;
     }
 
-    public void setAreaId(int areaId) {
-        this.areaId = areaId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getAreaName() {
@@ -38,7 +38,7 @@ public class Areas {
 
         Areas areas = (Areas) o;
 
-        if (areaId != areas.areaId) return false;
+        if (id != areas.id) return false;
         if (areaName != null ? !areaName.equals(areas.areaName) : areas.areaName != null) return false;
 
         return true;
@@ -46,16 +46,16 @@ public class Areas {
 
     @Override
     public int hashCode() {
-        int result = areaId;
+        int result = id;
         result = 31 * result + (areaName != null ? areaName.hashCode() : 0);
         return result;
     }
 
-    public Collection<ParticipantDetails> getParticipantDetailsByAreaId() {
-        return participantDetailsByAreaId;
+    public Collection<Participants> getParticipantsById() {
+        return participantsById;
     }
 
-    public void setParticipantDetailsByAreaId(Collection<ParticipantDetails> participantDetailsByAreaId) {
-        this.participantDetailsByAreaId = participantDetailsByAreaId;
+    public void setParticipantsById(Collection<Participants> participantsById) {
+        this.participantsById = participantsById;
     }
 }

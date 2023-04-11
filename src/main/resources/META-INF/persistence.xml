@@ -8,15 +8,15 @@
     <class>com.example.javaassignment.entity.Addresses</class>
     <class>com.example.javaassignment.entity.Areas</class>
     <class>com.example.javaassignment.entity.Countries</class>
-    <class>com.example.javaassignment.entity.EventRegistration</class>
     <class>com.example.javaassignment.entity.Events</class>
-    <class>com.example.javaassignment.entity.ParticipantDetailEventRegistration</class>
-    <class>com.example.javaassignment.entity.ParticipantDetails</class>
+    <class>com.example.javaassignment.entity.Participants</class>
+    <class>com.example.javaassignment.entity.RegistrationParticipant</class>
+    <class>com.example.javaassignment.entity.Registrations</class>
     <properties>
       <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/java_assignment_q3?autoReconnect=true&amp;useSSL=false"/>
       <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
       <property name="hibernate.connection.username" value="root"/>
-      <property name="hibernate.connection.password" value="12345"/>
+      <property name="hibernate.connection.password" value="password"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
       
       

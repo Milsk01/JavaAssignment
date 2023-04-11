@@ -8,8 +8,8 @@ import java.util.Collection;
 public class Events {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "event_id")
-    private int eventId;
+    @Column(name = "id")
+    private int id;
     @Basic
     @Column(name = "event_name")
     private String eventName;
@@ -17,14 +17,14 @@ public class Events {
     @Column(name = "event_date")
     private Timestamp eventDate;
     @OneToMany(mappedBy = "eventsByEventId")
-    private Collection<EventRegistration> eventRegistrationsByEventId;
+    private Collection<Registrations> registrationsById;
 
-    public int getEventId() {
-        return eventId;
+    public int getId() {
+        return id;
     }
 
-    public void setEventId(int eventId) {
-        this.eventId = eventId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEventName() {
@@ -50,7 +50,7 @@ public class Events {
 
         Events events = (Events) o;
 
-        if (eventId != events.eventId) return false;
+        if (id != events.id) return false;
         if (eventName != null ? !eventName.equals(events.eventName) : events.eventName != null) return false;
         if (eventDate != null ? !eventDate.equals(events.eventDate) : events.eventDate != null) return false;
 
@@ -59,17 +59,17 @@ public class Events {
 
     @Override
     public int hashCode() {
-        int result = eventId;
+        int result = id;
         result = 31 * result + (eventName != null ? eventName.hashCode() : 0);
         result = 31 * result + (eventDate != null ? eventDate.hashCode() : 0);
         return result;
     }
 
-    public Collection<EventRegistration> getEventRegistrationsByEventId() {
-        return eventRegistrationsByEventId;
+    public Collection<Registrations> getRegistrationsById() {
+        return registrationsById;
     }
 
-    public void setEventRegistrationsByEventId(Collection<EventRegistration> eventRegistrationsByEventId) {
-        this.eventRegistrationsByEventId = eventRegistrationsByEventId;
+    public void setRegistrationsById(Collection<Registrations> registrationsById) {
+        this.registrationsById = registrationsById;
     }
 }

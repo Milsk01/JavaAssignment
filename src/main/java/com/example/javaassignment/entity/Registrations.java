@@ -4,12 +4,11 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "event_registration", schema = "java_assignment_q3")
-public class EventRegistration {
+public class Registrations {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "event_registration_id")
-    private int eventRegistrationId;
+    @Column(name = "id")
+    private int id;
     @Basic
     @Column(name = "is_first_time")
     private byte isFirstTime;
@@ -26,20 +25,20 @@ public class EventRegistration {
     @Column(name = "number_of_paper")
     private String numberOfPaper;
     @Basic
-    @Column(name = "event_id",updatable = false,insertable = false)
+    @Column(name = "event_id")
     private int eventId;
+    @OneToMany(mappedBy = "registrationsByRegistrationId")
+    private Collection<RegistrationParticipant> registrationParticipantsById;
     @ManyToOne
-    @JoinColumn(name = "event_id", referencedColumnName = "event_id", nullable = false)
+    @JoinColumn(name = "event_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     private Events eventsByEventId;
-    @OneToMany(mappedBy = "eventRegistrationByEventRegistrationId")
-    private Collection<ParticipantDetailEventRegistration> participantDetailEventRegistrationsByEventRegistrationId;
 
-    public int getEventRegistrationId() {
-        return eventRegistrationId;
+    public int getId() {
+        return id;
     }
 
-    public void setEventRegistrationId(int eventRegistrationId) {
-        this.eventRegistrationId = eventRegistrationId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public byte getIsFirstTime() {
@@ -95,9 +94,9 @@ public class EventRegistration {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EventRegistration that = (EventRegistration) o;
+        Registrations that = (Registrations) o;
 
-        if (eventRegistrationId != that.eventRegistrationId) return false;
+        if (id != that.id) return false;
         if (isFirstTime != that.isFirstTime) return false;
         if (isStudent != that.isStudent) return false;
         if (eventId != that.eventId) return false;
@@ -112,7 +111,7 @@ public class EventRegistration {
 
     @Override
     public int hashCode() {
-        int result = eventRegistrationId;
+        int result = id;
         result = 31 * result + (int) isFirstTime;
         result = 31 * result + (int) isStudent;
         result = 31 * result + (tshirtSize != null ? tshirtSize.hashCode() : 0);
@@ -122,19 +121,19 @@ public class EventRegistration {
         return result;
     }
 
+    public Collection<RegistrationParticipant> getRegistrationParticipantsById() {
+        return registrationParticipantsById;
+    }
+
+    public void setRegistrationParticipantsById(Collection<RegistrationParticipant> registrationParticipantsById) {
+        this.registrationParticipantsById = registrationParticipantsById;
+    }
+
     public Events getEventsByEventId() {
         return eventsByEventId;
     }
 
     public void setEventsByEventId(Events eventsByEventId) {
         this.eventsByEventId = eventsByEventId;
-    }
-
-    public Collection<ParticipantDetailEventRegistration> getParticipantDetailEventRegistrationsByEventRegistrationId() {
-        return participantDetailEventRegistrationsByEventRegistrationId;
-    }
-
-    public void setParticipantDetailEventRegistrationsByEventRegistrationId(Collection<ParticipantDetailEventRegistration> participantDetailEventRegistrationsByEventRegistrationId) {
-        this.participantDetailEventRegistrationsByEventRegistrationId = participantDetailEventRegistrationsByEventRegistrationId;
     }
 }

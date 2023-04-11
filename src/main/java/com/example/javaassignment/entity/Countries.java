@@ -7,20 +7,20 @@ import java.util.Collection;
 public class Countries {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "country_id")
-    private int countryId;
+    @Column(name = "id")
+    private int id;
     @Basic
     @Column(name = "country_name")
     private String countryName;
     @OneToMany(mappedBy = "countriesByCountryId")
-    private Collection<Addresses> addressesByCountryId;
+    private Collection<Addresses> addressesById;
 
-    public int getCountryId() {
-        return countryId;
+    public int getId() {
+        return id;
     }
 
-    public void setCountryId(int countryId) {
-        this.countryId = countryId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCountryName() {
@@ -38,7 +38,7 @@ public class Countries {
 
         Countries countries = (Countries) o;
 
-        if (countryId != countries.countryId) return false;
+        if (id != countries.id) return false;
         if (countryName != null ? !countryName.equals(countries.countryName) : countries.countryName != null)
             return false;
 
@@ -47,16 +47,16 @@ public class Countries {
 
     @Override
     public int hashCode() {
-        int result = countryId;
+        int result = id;
         result = 31 * result + (countryName != null ? countryName.hashCode() : 0);
         return result;
     }
 
-    public Collection<Addresses> getAddressesByCountryId() {
-        return addressesByCountryId;
+    public Collection<Addresses> getAddressesById() {
+        return addressesById;
     }
 
-    public void setAddressesByCountryId(Collection<Addresses> addressesByCountryId) {
-        this.addressesByCountryId = addressesByCountryId;
+    public void setAddressesById(Collection<Addresses> addressesById) {
+        this.addressesById = addressesById;
     }
 }

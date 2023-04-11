@@ -4,12 +4,11 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "participant_details", schema = "java_assignment_q3")
-public class ParticipantDetails {
+public class Participants {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "participant_detail_id")
-    private int participantDetailId;
+    @Column(name = "id")
+    private int id;
     @Basic
     @Column(name = "first_name")
     private String firstName;
@@ -28,21 +27,21 @@ public class ParticipantDetails {
     @Basic
     @Column(name = "area_id",insertable = false,updatable = false)
     private int areaId;
-    @OneToMany(mappedBy = "participantDetailsByParticipantDetailId")
-    private Collection<ParticipantDetailEventRegistration> participantDetailEventRegistrationsByParticipantDetailId;
     @ManyToOne
-    @JoinColumn(name = "address_id", referencedColumnName = "address_id", nullable = false)
+    @JoinColumn(name = "address_id", referencedColumnName = "id", nullable = false)
     private Addresses addressesByAddressId;
     @ManyToOne
-    @JoinColumn(name = "area_id", referencedColumnName = "area_id", nullable = false)
+    @JoinColumn(name = "area_id", referencedColumnName = "id", nullable = false)
     private Areas areasByAreaId;
+    @OneToMany(mappedBy = "participantsByParticipantId")
+    private Collection<RegistrationParticipant> registrationParticipantsById;
 
-    public int getParticipantDetailId() {
-        return participantDetailId;
+    public int getId() {
+        return id;
     }
 
-    public void setParticipantDetailId(int participantDetailId) {
-        this.participantDetailId = participantDetailId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -98,9 +97,9 @@ public class ParticipantDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ParticipantDetails that = (ParticipantDetails) o;
+        Participants that = (Participants) o;
 
-        if (participantDetailId != that.participantDetailId) return false;
+        if (id != that.id) return false;
         if (addressId != that.addressId) return false;
         if (areaId != that.areaId) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
@@ -113,7 +112,7 @@ public class ParticipantDetails {
 
     @Override
     public int hashCode() {
-        int result = participantDetailId;
+        int result = id;
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
@@ -121,14 +120,6 @@ public class ParticipantDetails {
         result = 31 * result + addressId;
         result = 31 * result + areaId;
         return result;
-    }
-
-    public Collection<ParticipantDetailEventRegistration> getParticipantDetailEventRegistrationsByParticipantDetailId() {
-        return participantDetailEventRegistrationsByParticipantDetailId;
-    }
-
-    public void setParticipantDetailEventRegistrationsByParticipantDetailId(Collection<ParticipantDetailEventRegistration> participantDetailEventRegistrationsByParticipantDetailId) {
-        this.participantDetailEventRegistrationsByParticipantDetailId = participantDetailEventRegistrationsByParticipantDetailId;
     }
 
     public Addresses getAddressesByAddressId() {
@@ -145,5 +136,13 @@ public class ParticipantDetails {
 
     public void setAreasByAreaId(Areas areasByAreaId) {
         this.areasByAreaId = areasByAreaId;
+    }
+
+    public Collection<RegistrationParticipant> getRegistrationParticipantsById() {
+        return registrationParticipantsById;
+    }
+
+    public void setRegistrationParticipantsById(Collection<RegistrationParticipant> registrationParticipantsById) {
+        this.registrationParticipantsById = registrationParticipantsById;
     }
 }

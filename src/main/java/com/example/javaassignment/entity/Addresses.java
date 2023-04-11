@@ -7,8 +7,8 @@ import java.util.Collection;
 public class Addresses {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "address_id")
-    private int addressId;
+    @Column(name = "id")
+    private int id;
     @Basic
     @Column(name = "first_line")
     private String firstLine;
@@ -28,20 +28,20 @@ public class Addresses {
     @Column(name = "postal_code")
     private String postalCode;
     @Basic
-    @Column(name = "country_id",updatable = false,insertable = false)
+    @Column(name = "country_id")
     private int countryId;
     @ManyToOne
-    @JoinColumn(name = "country_id", referencedColumnName = "country_id", nullable = false)
+    @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     private Countries countriesByCountryId;
     @OneToMany(mappedBy = "addressesByAddressId")
-    private Collection<ParticipantDetails> participantDetailsByAddressId;
+    private Collection<Participants> participantsById;
 
-    public int getAddressId() {
-        return addressId;
+    public int getId() {
+        return id;
     }
 
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstLine() {
@@ -107,7 +107,7 @@ public class Addresses {
 
         Addresses addresses = (Addresses) o;
 
-        if (addressId != addresses.addressId) return false;
+        if (id != addresses.id) return false;
         if (countryId != addresses.countryId) return false;
         if (firstLine != null ? !firstLine.equals(addresses.firstLine) : addresses.firstLine != null) return false;
         if (secondLine != null ? !secondLine.equals(addresses.secondLine) : addresses.secondLine != null) return false;
@@ -121,7 +121,7 @@ public class Addresses {
 
     @Override
     public int hashCode() {
-        int result = addressId;
+        int result = id;
         result = 31 * result + (firstLine != null ? firstLine.hashCode() : 0);
         result = 31 * result + (secondLine != null ? secondLine.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);
@@ -140,11 +140,11 @@ public class Addresses {
         this.countriesByCountryId = countriesByCountryId;
     }
 
-    public Collection<ParticipantDetails> getParticipantDetailsByAddressId() {
-        return participantDetailsByAddressId;
+    public Collection<Participants> getParticipantsById() {
+        return participantsById;
     }
 
-    public void setParticipantDetailsByAddressId(Collection<ParticipantDetails> participantDetailsByAddressId) {
-        this.participantDetailsByAddressId = participantDetailsByAddressId;
+    public void setParticipantsById(Collection<Participants> participantsById) {
+        this.participantsById = participantsById;
     }
 }
