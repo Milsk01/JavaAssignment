@@ -46,7 +46,7 @@
                             <h2 class="text-center mb-4">Conference Registration Form</h2>
                             <p class="text-center mb-4">Please fill the form below. We'll contact you as soon as possible.</p>
                         </div>
-                        <form method="post" >
+                        <form method="post" action="hello-servlet">
                             <div class="row justify-content-evenly">
                                 <div class="col-md-12 col-lg-12 col-xl-5 col-xxl-5 offset-lg-0 offset-xxl-0" style="margin-right: 15px;">
                                     <div class="form-group">
