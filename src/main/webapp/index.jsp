@@ -128,10 +128,10 @@
 
                                                 <c:forEach var = "event" items="${eventList}">
                                                     <div class="form-check"><input class="form-check-input"
-                                                                                   type="checkbox" id=<c:out value="${event.getEventId()}"/>
+                                                                                   type="checkbox" id=<c:out value="${event.getId()}"/>
                                                     />
                                                         <label class="form-check-label" for=
-                                                                <c:out value="${event.getEventId()}"/>>
+                                                                <c:out value="${event.getId()}"/>>
                                                             <c:out value = "${event.getEventName()} - ${event.getEventDate()} "/></label></div>
                                                 </c:forEach>
                                             </div>
@@ -160,13 +160,13 @@
                                                     <div class="col-xl-11">
                                                         <div class="row">
                                                             <div class="col-xl-11 col-xxl-10">
-                                                                <div class="form-check"><input required class="form-check-input" name="isStudent" type="radio" id="formCheck-6"><label class="form-check-label" for="formCheck-6" style="font-weight: bold;">Conference Registration Fee ( Normal Participant )</label></div>
+                                                                <div class="form-check"><input required class="form-check-input" name="isStudent" type="radio" id="formCheck-6" value ="500"><label class="form-check-label" for="formCheck-6" style="font-weight: bold;">Conference Registration Fee ( Normal Participant )</label></div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-10 col-xl-7 col-xxl-6 my-auto"><span># of papers</span></div>
-                                                            <div class="col-lg-2 col-xl-5 col-xxl-3"><select class="form-select">
-                                                                <optgroup label="Number of papers">
+                                                            <div class="col-lg-2 col-xl-5 col-xxl-3"><select class="form-select" id="numberOfPapersFromNormal">
+                                                                <optgroup label="Number of papers" >
                                                                     <option value="1" selected="">1</option>
                                                                     <option value="2">2</option>
                                                                     <option value="3">3</option>
@@ -184,13 +184,13 @@
                                                     <div class="col-xl-11">
                                                         <div class="row">
                                                             <div class="col-xl-11 col-xxl-10">
-                                                                <div class="form-check"><input class="form-check-input" name="isStudent" type="radio" id="formCheck-7"><label class="form-check-label" for="formCheck-7" style="font-weight: bold;">Conference Registration Fee ( Student Participant )</label></div>
+                                                                <div class="form-check"><input class="form-check-input" name="isStudent" type="radio" id="formCheck-7" value ="300"><label class="form-check-label"  for="formCheck-7" style="font-weight: bold;">Conference Registration Fee ( Student Participant )</label></div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-10 col-xl-7 col-xxl-6 my-auto"><span># of papers</span></div>
-                                                            <div class="col-lg-2 col-xl-5 col-xxl-3"><select class="form-select">
-                                                                <optgroup label="Number of papers">
+                                                            <div class="col-lg-2 col-xl-5 col-xxl-3"><select class="form-select" id="numberOfPapersFromStudent">
+                                                                <optgroup label="Number of papers" >
                                                                     <option value="1" selected="">1</option>
                                                                     <option value="2">2</option>
                                                                     <option value="3">3</option>
@@ -206,7 +206,7 @@
                                     <hr>
                                     <div>
                                         <div class="row" style="margin-bottom: 24px;">
-                                            <div class="col-12 d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-between align-items-xl-center"><button class="btn btn-primary d-flex" type="button">Check The Total Amount</button><span id="totalAmount">Total&nbsp; 0.00 RM</span></div>
+                                            <div class="col-12 d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-between align-items-xl-center"><button class="btn btn-primary d-flex" type="button" id="checkButton">Check The Total Amount</button><span id="totalAmount">Total&nbsp; 0.00 RM</span></div>
                                         </div>
                                         <div class="row">
                                             <div class="col d-lg-flex justify-content-between align-items-lg-center" style="display: inline-flex;">
