@@ -16,8 +16,6 @@ public class Events {
     @Basic
     @Column(name = "event_date")
     private Timestamp eventDate;
-    @OneToMany(mappedBy = "eventsByEventId")
-    private Collection<Registrations> registrationsById;
 
     public int getId() {
         return id;
@@ -65,11 +63,4 @@ public class Events {
         return result;
     }
 
-    public Collection<Registrations> getRegistrationsById() {
-        return registrationsById;
-    }
-
-    public void setRegistrationsById(Collection<Registrations> registrationsById) {
-        this.registrationsById = registrationsById;
-    }
 }

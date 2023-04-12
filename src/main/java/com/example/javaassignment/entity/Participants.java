@@ -22,19 +22,15 @@ public class Participants {
     @Column(name = "phone_number")
     private String phoneNumber;
     @Basic
-    @Column(name = "address_id",insertable = false,updatable = false)
-    private int addressId;
-    @Basic
-    @Column(name = "area_id",insertable = false,updatable = false)
+    @Column(name = "area_id")
     private int areaId;
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id", nullable = false)
     private Addresses addressesByAddressId;
     @ManyToOne
-    @JoinColumn(name = "area_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "area_id", referencedColumnName = "id", nullable = false,insertable = false,updatable = false)
     private Areas areasByAreaId;
-    @OneToMany(mappedBy = "participantsByParticipantId")
-    private Collection<RegistrationParticipant> registrationParticipantsById;
+
 
     public int getId() {
         return id;
@@ -76,14 +72,6 @@ public class Participants {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
-    }
-
     public int getAreaId() {
         return areaId;
     }
@@ -91,6 +79,8 @@ public class Participants {
     public void setAreaId(int areaId) {
         this.areaId = areaId;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -100,7 +90,6 @@ public class Participants {
         Participants that = (Participants) o;
 
         if (id != that.id) return false;
-        if (addressId != that.addressId) return false;
         if (areaId != that.areaId) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
@@ -117,7 +106,6 @@ public class Participants {
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
-        result = 31 * result + addressId;
         result = 31 * result + areaId;
         return result;
     }
@@ -138,11 +126,5 @@ public class Participants {
         this.areasByAreaId = areasByAreaId;
     }
 
-    public Collection<RegistrationParticipant> getRegistrationParticipantsById() {
-        return registrationParticipantsById;
-    }
 
-    public void setRegistrationParticipantsById(Collection<RegistrationParticipant> registrationParticipantsById) {
-        this.registrationParticipantsById = registrationParticipantsById;
-    }
 }

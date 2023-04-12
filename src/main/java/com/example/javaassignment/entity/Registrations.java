@@ -24,14 +24,21 @@ public class Registrations {
     @Basic
     @Column(name = "number_of_paper")
     private String numberOfPaper;
+
+    @ManyToMany
+    @JoinTable(
+            name = "registration_event",
+            joinColumns = @JoinColumn(name = "registration_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id", nullable = false))
+    private Collection<Events> eventsById;
+
+
     @Basic
-    @Column(name = "event_id")
-    private int eventId;
-    @OneToMany(mappedBy = "registrationsByRegistrationId")
-    private Collection<RegistrationParticipant> registrationParticipantsById;
-    @ManyToOne
-    @JoinColumn(name = "event_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    private Events eventsByEventId;
+    @Column(name = "participant_id",insertable = false,updatable = false)
+    private Integer participantId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "participant_id", referencedColumnName = "id")
+    private Participants participantsByParticipantId;
+
 
     public int getId() {
         return id;
@@ -81,13 +88,22 @@ public class Registrations {
         this.numberOfPaper = numberOfPaper;
     }
 
-    public int getEventId() {
-        return eventId;
+    public void setEventsById(Collection<Events> eventsById) {
+        this.eventsById = eventsById;
     }
 
-    public void setEventId(int eventId) {
-        this.eventId = eventId;
+    public Collection<Events> getEventsById() {
+        return eventsById;
     }
+
+    public Integer getParticipantId() {
+        return participantId;
+    }
+
+    public void setParticipantId(Integer participantId) {
+        this.participantId = participantId;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -99,11 +115,12 @@ public class Registrations {
         if (id != that.id) return false;
         if (isFirstTime != that.isFirstTime) return false;
         if (isStudent != that.isStudent) return false;
-        if (eventId != that.eventId) return false;
         if (tshirtSize != null ? !tshirtSize.equals(that.tshirtSize) : that.tshirtSize != null) return false;
         if (registrationFees != null ? !registrationFees.equals(that.registrationFees) : that.registrationFees != null)
             return false;
         if (numberOfPaper != null ? !numberOfPaper.equals(that.numberOfPaper) : that.numberOfPaper != null)
+            return false;
+        if (participantId != null ? !participantId.equals(that.participantId) : that.participantId != null)
             return false;
 
         return true;
@@ -117,23 +134,17 @@ public class Registrations {
         result = 31 * result + (tshirtSize != null ? tshirtSize.hashCode() : 0);
         result = 31 * result + (registrationFees != null ? registrationFees.hashCode() : 0);
         result = 31 * result + (numberOfPaper != null ? numberOfPaper.hashCode() : 0);
-        result = 31 * result + eventId;
+        result = 31 * result + (participantId != null ? participantId.hashCode() : 0);
         return result;
     }
 
-    public Collection<RegistrationParticipant> getRegistrationParticipantsById() {
-        return registrationParticipantsById;
+    public Participants getParticipantsByParticipantId() {
+        return participantsByParticipantId;
     }
 
-    public void setRegistrationParticipantsById(Collection<RegistrationParticipant> registrationParticipantsById) {
-        this.registrationParticipantsById = registrationParticipantsById;
+    public void setParticipantsByParticipantId(Participants participantsByParticipantId) {
+        this.participantsByParticipantId = participantsByParticipantId;
     }
 
-    public Events getEventsByEventId() {
-        return eventsByEventId;
-    }
 
-    public void setEventsByEventId(Events eventsByEventId) {
-        this.eventsByEventId = eventsByEventId;
-    }
 }

@@ -1,28 +1,21 @@
 package com.example.javaassignment.repository;
 
+import com.example.javaassignment.entity.Registrations;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-public class AreaRepository {
+public class RegistrationRepository {
 
-    public static List getAreas(){
+    public void save(Registrations registrations){
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-
-
-        List areas =entityManager.createQuery("Select a from Areas a").getResultList();
-
+        entityManager.getTransaction().begin();
+        entityManager.persist(registrations);
+        entityManager.getTransaction().commit();
         entityManager.close();
         entityManagerFactory.close();
-
-        return areas;
-    }
-
-    public static void main(String[] args) {
-        AreaRepository.getAreas();
     }
 }

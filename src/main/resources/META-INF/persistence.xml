@@ -10,8 +10,8 @@
     <class>com.example.javaassignment.entity.Countries</class>
     <class>com.example.javaassignment.entity.Events</class>
     <class>com.example.javaassignment.entity.Participants</class>
-    <class>com.example.javaassignment.entity.RegistrationParticipant</class>
     <class>com.example.javaassignment.entity.Registrations</class>
+
     <properties>
       <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/java_assignment_q3?autoReconnect=true&amp;useSSL=false"/>
       <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>

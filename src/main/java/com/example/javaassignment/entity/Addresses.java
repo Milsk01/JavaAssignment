@@ -1,7 +1,6 @@
 package com.example.javaassignment.entity;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 public class Addresses {
@@ -21,20 +20,19 @@ public class Addresses {
     @Basic
     @Column(name = "state")
     private String state;
-    @Basic
-    @Column(name = "province")
-    private String province;
+
     @Basic
     @Column(name = "postal_code")
     private String postalCode;
+
     @Basic
     @Column(name = "country_id")
     private int countryId;
     @ManyToOne
-    @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false,insertable = false,updatable = false)
     private Countries countriesByCountryId;
-    @OneToMany(mappedBy = "addressesByAddressId")
-    private Collection<Participants> participantsById;
+    @OneToOne(mappedBy = "addressesByAddressId")
+    private Participants participantsById;
 
     public int getId() {
         return id;
@@ -76,13 +74,14 @@ public class Addresses {
         this.state = state;
     }
 
-    public String getProvince() {
-        return province;
+    public int getCountryId() {
+        return countryId;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
+    public void setCountryId(int countryId) {
+        this.countryId = countryId;
     }
+
 
     public String getPostalCode() {
         return postalCode;
@@ -90,14 +89,6 @@ public class Addresses {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
-    }
-
-    public int getCountryId() {
-        return countryId;
-    }
-
-    public void setCountryId(int countryId) {
-        this.countryId = countryId;
     }
 
     @Override
@@ -113,7 +104,6 @@ public class Addresses {
         if (secondLine != null ? !secondLine.equals(addresses.secondLine) : addresses.secondLine != null) return false;
         if (city != null ? !city.equals(addresses.city) : addresses.city != null) return false;
         if (state != null ? !state.equals(addresses.state) : addresses.state != null) return false;
-        if (province != null ? !province.equals(addresses.province) : addresses.province != null) return false;
         if (postalCode != null ? !postalCode.equals(addresses.postalCode) : addresses.postalCode != null) return false;
 
         return true;
@@ -126,9 +116,10 @@ public class Addresses {
         result = 31 * result + (secondLine != null ? secondLine.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (state != null ? state.hashCode() : 0);
-        result = 31 * result + (province != null ? province.hashCode() : 0);
-        result = 31 * result + (postalCode != null ? postalCode.hashCode() : 0);
         result = 31 * result + countryId;
+        result = 31 * result + (postalCode != null ? postalCode.hashCode() : 0);
+
+
         return result;
     }
 
@@ -140,11 +131,11 @@ public class Addresses {
         this.countriesByCountryId = countriesByCountryId;
     }
 
-    public Collection<Participants> getParticipantsById() {
+    public Participants getParticipantsById() {
         return participantsById;
     }
 
-    public void setParticipantsById(Collection<Participants> participantsById) {
+    public void setParticipantsById(Participants participantsById) {
         this.participantsById = participantsById;
     }
 }
