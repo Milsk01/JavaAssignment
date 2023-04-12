@@ -11,9 +11,17 @@
 <%@ page import = "com.example.javaassignment.entity.Events" %>
 <%@ page import = "com.example.javaassignment.repository.EventRepository" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.example.javaassignment.repository.CountryRepository" %>
+<%@ page import="com.example.javaassignment.repository.AreaRepository" %>
 
-<% List events = EventRepository.getValidEvents();
+<%
+    List events = EventRepository.getValidEvents();
+    List countries = CountryRepository.getCountries();
+    List areas = AreaRepository.getAreas();
+
     request.setAttribute("eventList", events );
+    request.setAttribute("countries", countries);
+    request.setAttribute("areas", areas);
 
 
 
@@ -46,7 +54,7 @@
                             <h2 class="text-center mb-4">Conference Registration Form</h2>
                             <p class="text-center mb-4">Please fill the form below. We'll contact you as soon as possible.</p>
                         </div>
-                        <form method="post" action="hello-servlet">
+                        <form method="post" id="registrationForm">
                             <div class="row justify-content-evenly">
                                 <div class="col-md-12 col-lg-12 col-xl-5 col-xxl-5 offset-lg-0 offset-xxl-0" style="margin-right: 15px;">
                                     <div class="form-group">
@@ -64,10 +72,11 @@
                                         </div>
                                         <div class="row">
                                             <div class="col"><select required class="form-select" name="area">
-                                                <optgroup label="This is a group">
-                                                    <option value="12" selected="">Please Select </option>
-                                                    <option value="13">This is item 2</option>
-                                                    <option value="14">This is item 3</option>
+                                                <optgroup label="Please select an area">
+                                                    <c:forEach var = "area" items="${areas}">
+                                                        <option value= <c:out value="${area.getId()}"/>><c:out value="${area.getAreaName()}"/></option>
+                                                    </c:forEach>
+
                                                 </optgroup>
                                             </select></div>
                                         </div>
@@ -87,7 +96,16 @@
                                         </div>
                                         <div class="row">
                                             <div class="col"><input required class="form-control" type="text" style="margin-top: 15px;" name="postalCode"><small class="form-text">Postal/Zip Code</small></div>
-                                            <div class="col"><input required class="form-control" type="search" style="margin-top: 15px;" name="country"><small class="form-text">Country</small></div>
+                                            <div class="col">
+                                                <select class="form-select" name="country" style="margin-top: 15px;">
+                                                    <optgroup label="Please Select a country">
+                                                        <c:forEach var = "country" items="${countries}">
+                                                            <option value= <c:out value="${country.getId()}"/>><c:out value="${country.getCountryName()}"/></option>
+                                                        </c:forEach>
+                                                    </optgroup>
+                                                </select>
+                                                <small class="form-text">Country</small>
+                                            </div>
                                         </div>
                                     </div>
                                     <div style="padding-top: 0px;margin-top: 30px;padding-bottom: 0px;">
@@ -114,8 +132,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-xl-12">
-                                                <div class="form-check" value="1"><input required class="form-check-input"  name="isFirstTime" type="radio" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Yes</label></div>
-                                                <div class="form-check"  value="0"><input required class="form-check-input" name="isFirstTime" type="radio" id="formCheck-2"><label class="form-check-label" for="formCheck-2">No</label></div>
+                                                <div class="form-check"><input required class="form-check-input"  name="isFirstTime" type="radio" id="formCheck-1" value="1"><label class="form-check-label" for="formCheck-1">Yes</label></div>
+                                                <div class="form-check"><input required class="form-check-input" name="isFirstTime" type="radio" id="formCheck-2" value="0"><label class="form-check-label" for="formCheck-2">No</label></div>
                                             </div>
                                         </div>
                                     </div>
@@ -127,11 +145,14 @@
                                             <div class="col-xl-12">
 
                                                 <c:forEach var = "event" items="${eventList}">
-                                                    <div class="form-check"><input class="form-check-input"
-                                                                                   type="checkbox" id=<c:out value="${event.getId()}"/>
-                                                    />
-                                                        <label class="form-check-label" for=
-                                                                <c:out value="${event.getId()}"/>>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" name="events" type="checkbox"
+                                                               id=<c:out value="${event.getId()}"/>
+                                                                value=<c:out value="${event.getId()}"/>
+                                                        />
+                                                        <label class="form-check-label"
+                                                               for=<c:out value="${event.getId()}"/>
+                                                        >
                                                             <c:out value = "${event.getEventName()} - ${event.getEventDate()} "/></label></div>
                                                 </c:forEach>
                                             </div>
@@ -139,7 +160,7 @@
                                     </div>
                                     <div style="padding-top: 0px;margin-top: 30px;">
                                         <div class="row">
-                                            <div class="col-lg-7" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><strong class="required">What's your T-Shirt size?</strong><select class="form-select">
+                                            <div class="col-lg-7" style="padding-bottom: 0px;padding-top: 0px;padding-left: 16px;margin-bottom: 11px;"><strong class="required">What's your T-Shirt size?</strong><select class="form-select" name="tShirtSize">
                                                 <optgroup label="T-Shirt Size">
                                                     <option value="XS" selected="">XS</option>
                                                     <option value="S">S</option>
@@ -160,12 +181,12 @@
                                                     <div class="col-xl-11">
                                                         <div class="row">
                                                             <div class="col-xl-11 col-xxl-10">
-                                                                <div class="form-check"><input required class="form-check-input" name="isStudent" type="radio" id="formCheck-6" value ="500"><label class="form-check-label" for="formCheck-6" style="font-weight: bold;">Conference Registration Fee ( Normal Participant )</label></div>
+                                                                <div class="form-check"><input required class="form-check-input" name="isStudent" type="radio" id="formCheck-6" value ="0"><label class="form-check-label" for="formCheck-6" style="font-weight: bold;">Conference Registration Fee ( Normal Participant )</label></div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-10 col-xl-7 col-xxl-6 my-auto"><span># of papers</span></div>
-                                                            <div class="col-lg-2 col-xl-5 col-xxl-3"><select class="form-select" id="numberOfPapersFromNormal">
+                                                            <div class="col-lg-2 col-xl-5 col-xxl-3"><select class="form-select" id="numberOfPapersFromNormal" name="numberOfPapersFromNormal">
                                                                 <optgroup label="Number of papers" >
                                                                     <option value="1" selected="">1</option>
                                                                     <option value="2">2</option>
@@ -184,12 +205,12 @@
                                                     <div class="col-xl-11">
                                                         <div class="row">
                                                             <div class="col-xl-11 col-xxl-10">
-                                                                <div class="form-check"><input class="form-check-input" name="isStudent" type="radio" id="formCheck-7" value ="300"><label class="form-check-label"  for="formCheck-7" style="font-weight: bold;">Conference Registration Fee ( Student Participant )</label></div>
+                                                                <div class="form-check"><input class="form-check-input" name="isStudent" type="radio" id="formCheck-7" value ="1"><label class="form-check-label"  for="formCheck-7" style="font-weight: bold;">Conference Registration Fee ( Student Participant )</label></div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-10 col-xl-7 col-xxl-6 my-auto"><span># of papers</span></div>
-                                                            <div class="col-lg-2 col-xl-5 col-xxl-3"><select class="form-select" id="numberOfPapersFromStudent">
+                                                            <div class="col-lg-2 col-xl-5 col-xxl-3"><select class="form-select" id="numberOfPapersFromStudent" name="numberOfPapersFromStudent">
                                                                 <optgroup label="Number of papers" >
                                                                     <option value="1" selected="">1</option>
                                                                     <option value="2">2</option>
