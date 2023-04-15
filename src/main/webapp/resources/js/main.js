@@ -37,7 +37,17 @@ $(document).ready(function () {
 
     $("#registrationForm").submit(function (e) {
 
+
         e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        // check if at least one checkbox is ticked
+        const events = $("input[type='checkbox'][name='events']:checked")
+
+        // alert if there is no checkbox ticked
+        if (events.length === 0) {
+            alert("Please select at least one event");
+            return;
+        }
 
         var form = $(this);
         var actionUrl = "/JavaAssignment-1.0-SNAPSHOT/hello-servlet"
