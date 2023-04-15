@@ -12,7 +12,7 @@ public class Countries {
     @Basic
     @Column(name = "country_name")
     private String countryName;
-    @OneToMany(mappedBy = "countriesByCountryId")
+    @OneToMany(mappedBy = "countryById")
     private Collection<Addresses> addressesById;
 
     public int getId() {

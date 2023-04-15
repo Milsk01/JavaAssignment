@@ -28,7 +28,7 @@ public class Participants {
     private int areaId;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id", nullable = false)
-    private Addresses addressesByAddressId;
+    private Addresses addressById;
     @ManyToOne
     @JoinColumn(name = "area_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     private Areas areasById;
@@ -122,20 +122,20 @@ public class Participants {
         return result;
     }
 
-    public Addresses getAddressesByAddressId() {
-        return addressesByAddressId;
+    public Addresses getAddressesById() {
+        return addressById;
     }
 
-    public void setAddressesByAddressId(Addresses addressesByAddressId) {
-        this.addressesByAddressId = addressesByAddressId;
+    public void setAddressesByAddressId(Addresses addressesById) {
+        this.addressById = addressesById;
     }
 
-    public Areas getAreasByAreaId() {
-        return areasByAreaId;
+    public Areas getAreasById() {
+        return areasById;
     }
 
-    public void setAreasByAreaId(Areas areasByAreaId) {
-        this.areasByAreaId = areasByAreaId;
+    public void setAreasById(Areas areasById) {
+        this.areasById = areasById;
     }
 
 

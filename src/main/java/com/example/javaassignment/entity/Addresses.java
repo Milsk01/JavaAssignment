@@ -29,9 +29,10 @@ public class Addresses {
     @Column(name = "country_id")
     private int countryId;
     @ManyToOne
-    @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false,insertable = false,updatable = false)
-    private Countries countriesByCountryId;
-    @OneToOne(mappedBy = "addressesByAddressId")
+    @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    private Countries countryById;
+
+    @OneToOne(mappedBy = "addressById")
     private Participants participantsById;
 
     public int getId() {
@@ -123,12 +124,12 @@ public class Addresses {
         return result;
     }
 
-    public Countries getCountriesByCountryId() {
-        return countriesByCountryId;
+    public Countries getCountryById() {
+        return countryById;
     }
 
-    public void setCountriesByCountryId(Countries countriesByCountryId) {
-        this.countriesByCountryId = countriesByCountryId;
+    public void setCountryById(Countries countryById) {
+        this.countryById = countryById;
     }
 
     public Participants getParticipantsById() {

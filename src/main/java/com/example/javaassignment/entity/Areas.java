@@ -12,7 +12,7 @@ public class Areas {
     @Basic
     @Column(name = "area_name")
     private String areaName;
-    @OneToMany(mappedBy = "areasByAreaId")
+    @OneToMany(mappedBy = "areasById")
     private Collection<Participants> participantsById;
 
     public int getId() {
