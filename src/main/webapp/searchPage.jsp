@@ -17,15 +17,15 @@
     <title>Search Page</title>
     <link rel="stylesheet" href="resources/css/bootstrap.min.css">
     <style>
-        table {
-            border-collapse: collapse;
-            border: 1px solid black;
-        }
+        /*table {*/
+        /*    border-collapse: collapse;*/
+        /*    border: 1px solid black;*/
+        /*}*/
 
-        th, td {
-            border: 1px solid black;
-            padding: 5px;
-        }
+        /*th, td {*/
+        /*    border: 1px solid black;*/
+        /*    padding: 5px;*/
+        /*}*/
 
         #header_row,
         .result_row {
@@ -34,6 +34,7 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="resources/js/main.js"></script>
+    <script src="resources/js/bootstrap.min.js"></script>
 </head>
 <body>
 <section style="padding-top: 31px; "></section>
@@ -97,7 +98,7 @@
                         </div>
                     </div>
                     <h3 style="margin-bottom: 43px;" id="noRecord"></h3>
-                    <div class="table-responsive" style="padding-bottom: 0px;margin-bottom: 43px;">
+                    <div class="table-responsive col-lg-8" style="padding-bottom: 0px;margin-bottom: 43px;">
                         <table class="table">
                             <thead>
                             <tr id="header_row">
@@ -128,7 +129,16 @@
                                 Countries country = address.getCountryById();
                                 Collection<Events> events = registration.getEventsById();
                                 Iterator<Events> iter = events.iterator();
-                                Events event = iter.next();
+
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+                                String eventString = "";
+                                String eventDate = "";
+                                for (; iter.hasNext(); ) {
+                                    Events event = iter.next();
+                                    eventString = eventString + event.getEventName() + '(' + dateFormat.format(event.getEventDate()).toString() + "）";
+                                }
+
                             %>
                             <tr class="result_row" data-is-student="<%= registration.getIsStudent() %>"
                                 data-name="<%= participant.getFirstName() %> <%= participant.getLastName() %>"
@@ -137,8 +147,8 @@
                                 </td>
                                 <td><%= area.getAreaName()%>
                                 </td>
-                                <td><%= address.getFirstLine() %>, <%= address.getSecondLine() %>
-                                    , <%= address.getPostalCode() %> <%= address.getCity() %>, <%= address.getState() %>
+                                <td><%=address.getFirstLine()%>, <%=address.getSecondLine()%>
+                                    , <%= address.getPostalCode() %> <%=address.getCity()%>, <%= address.getState() %>
                                     , <%= country.getCountryName() %>
                                 </td>
                                 <td><%= participant.getEmail() %>
@@ -147,10 +157,8 @@
                                 </td>
                                 <td><%= registration.getIsFirstTime() == 1 ? "Yes" : "No" %>
                                 </td>
-                                <%
-                                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                                %>
-                                <td><%= event.getEventName()%> <%= dateFormat.format(event.getEventDate()) %>
+
+                                <td><%= eventString%> <%=eventDate %>
                                 </td>
                                 </td>
                                 <td><%= registration.getTshirtSize() %>
