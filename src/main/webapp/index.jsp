@@ -221,7 +221,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-2 col-xl-3 col-xxl-2" style="text-align: justify;"><span style="text-align: right;margin-left: auto;">500.00 RM</span></div>
+                                            <div class="col-lg-2 col-xl-3 col-xxl-2" style="text-align: justify;"><span style="text-align: right;margin-left: auto;">300.00 RM</span></div>
                                         </div>
                                     </div>
                                     <hr>
