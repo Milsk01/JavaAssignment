@@ -45,7 +45,7 @@
                 <div class="card-body">
                     <div class="container">
                         <div class="row d-xl-flex justify-content-xl-center">
-                            <div class="col-xl-8" style="padding-top: 0px;">
+                            <div class="col-xl-10" style="padding-top: 0px;">
                                 <h1 style="margin-top: 50px;margin-bottom: 21px;">Search Tool</h1>
                                 <div class="row">
                                     <div class="col">
@@ -96,89 +96,95 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row d-xl-flex justify-content-xl-center">
+                            <div class="col-xl-10">
+                                <h3 style="margin-bottom: 43px;" id="noRecord"></h3>
+                                <div class=" table-responsive " style="padding-bottom: 0px;margin-bottom: 43px;">
+                                    <table class="table w-auto">
+                                        <thead>
+                                        <tr id="header_row">
+                                            <th style="min-width: 50px;">Name</th>
+                                            <th>Area</th>
+                                            <th style="min-width: 150px;">Address</th>
+                                            <th>Email</th>
+                                            <th>Contact</th>
+                                            <th>is First Time</th>
+                                            <th>Events</th>
+                                            <th>T-Shirt Size</th>
+                                            <th>Is Student</th>
+                                            <th># Papers</th>
+                                            <th>Registration Fees (RM)</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <%
+                                            EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
+                                            EntityManager em = emf.createEntityManager();
+                                            String query = "SELECT a FROM Registrations a";
+                                            List<Registrations> registrationsList = em.createQuery(query, Registrations.class).getResultList();
+                                        %>
+                                        <% for (Registrations registration : registrationsList) {
+                                            Participants participant = registration.getParticipantsByParticipantId();
+                                            Addresses address = participant.getAddressesById();
+                                            Areas area = participant.getAreasById();
+                                            Countries country = address.getCountryById();
+                                            Collection<Events> events = registration.getEventsById();
+                                            Iterator<Events> iter = events.iterator();
+
+                                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+                                            String eventString = "";
+                                            String eventDate = "";
+                                            for (; iter.hasNext(); ) {
+                                                Events event = iter.next();
+                                                eventString = eventString + event.getEventName() + " (" + dateFormat.format(event.getEventDate()).toString() + "";
+                                            }
+
+                                        %>
+                                        <tr class="result_row" data-is-student="<%= registration.getIsStudent() %>"
+                                            data-name="<%= participant.getFirstName() %> <%= participant.getLastName() %>"
+                                            data-id="<%= participant.getId() %>">
+                                            <td><%= participant.getFirstName() %> <%= participant.getLastName() %>
+                                            </td>
+                                            <td><%= area.getAreaName()%>
+                                            </td>
+                                            <td class="overflow-auto" style="min-width: 150px;height: 50px;"><%=address.getFirstLine()%>, <%=address.getSecondLine()%>
+                                                , <%= address.getPostalCode() %> <%=address.getCity()%>, <%= address.getState() %>
+                                                , <%= country.getCountryName() %>
+                                            </td>
+                                            <td><%= participant.getEmail() %>
+                                            </td>
+                                            <td><%= participant.getPhoneNumber() %>
+                                            </td>
+                                            <td><%= registration.getIsFirstTime() == 1 ? "Yes" : "No" %>
+                                            </td>
+
+                                            <td class="text-nowrap"><%= eventString%> <%=eventDate %>
+                                            </td>
+                                            </td>
+                                            <td><%= registration.getTshirtSize() %>
+                                            </td>
+                                            <td><%= registration.getIsStudent() == 1 ? "Yes" : "No" %>
+                                            </td>
+                                            <td><%= registration.getNumberOfPaper() %>
+                                            </td>
+                                            <td><%= registration.getRegistrationFees() %>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+
+                                        <%
+                                            em.close();
+                                            emf.close();
+                                        %>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
-                    <h3 style="margin-bottom: 43px;" id="noRecord"></h3>
-                    <div class="table-responsive col-lg-8" style="padding-bottom: 0px;margin-bottom: 43px;">
-                        <table class="table">
-                            <thead>
-                            <tr id="header_row">
-                                <th style="margin-right: -5px;">Full Name</th>
-                                <th>Area</th>
-                                <th>Address</th>
-                                <th>Email</th>
-                                <th>Phone Number</th>
-                                <th>is First Time</th>
-                                <th>Events Attended</th>
-                                <th>T-Shirt Size</th>
-                                <th>is Student</th>
-                                <th>Number of Papers</th>
-                                <th>Registration Fees (RM)</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <%
-                                EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
-                                EntityManager em = emf.createEntityManager();
-                                String query = "SELECT a FROM Registrations a";
-                                List<Registrations> registrationsList = em.createQuery(query, Registrations.class).getResultList();
-                            %>
-                            <% for (Registrations registration : registrationsList) {
-                                Participants participant = registration.getParticipantsByParticipantId();
-                                Addresses address = participant.getAddressesById();
-                                Areas area = participant.getAreasById();
-                                Countries country = address.getCountryById();
-                                Collection<Events> events = registration.getEventsById();
-                                Iterator<Events> iter = events.iterator();
 
-                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-
-                                String eventString = "";
-                                String eventDate = "";
-                                for (; iter.hasNext(); ) {
-                                    Events event = iter.next();
-                                    eventString = eventString + event.getEventName() + '(' + dateFormat.format(event.getEventDate()).toString() + "）";
-                                }
-
-                            %>
-                            <tr class="result_row" data-is-student="<%= registration.getIsStudent() %>"
-                                data-name="<%= participant.getFirstName() %> <%= participant.getLastName() %>"
-                                data-id="<%= participant.getId() %>">
-                                <td><%= participant.getFirstName() %> <%= participant.getLastName() %>
-                                </td>
-                                <td><%= area.getAreaName()%>
-                                </td>
-                                <td><%=address.getFirstLine()%>, <%=address.getSecondLine()%>
-                                    , <%= address.getPostalCode() %> <%=address.getCity()%>, <%= address.getState() %>
-                                    , <%= country.getCountryName() %>
-                                </td>
-                                <td><%= participant.getEmail() %>
-                                </td>
-                                <td><%= participant.getPhoneNumber() %>
-                                </td>
-                                <td><%= registration.getIsFirstTime() == 1 ? "Yes" : "No" %>
-                                </td>
-
-                                <td><%= eventString%> <%=eventDate %>
-                                </td>
-                                </td>
-                                <td><%= registration.getTshirtSize() %>
-                                </td>
-                                <td><%= registration.getIsStudent() == 1 ? "Yes" : "No" %>
-                                </td>
-                                <td><%= registration.getNumberOfPaper() %>
-                                </td>
-                                <td><%= registration.getRegistrationFees() %>
-                                </td>
-                            </tr>
-                            <% } %>
-
-                            <%
-                                em.close();
-                                emf.close();
-                            %>
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
             </div>
         </div>
