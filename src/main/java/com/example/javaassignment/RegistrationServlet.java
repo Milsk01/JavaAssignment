@@ -1,17 +1,18 @@
 package com.example.javaassignment;
 
-import com.example.javaassignment.entity.*;
-import java.io.*;
+import com.example.javaassignment.entity.Addresses;
+import com.example.javaassignment.entity.Events;
+import com.example.javaassignment.entity.Participants;
+import com.example.javaassignment.entity.Registrations;
+import com.example.javaassignment.repository.RegistrationRepository;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-
-import com.example.javaassignment.repository.RegistrationRepository;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 @WebServlet(name = "helloServlet", value = "/hello-servlet")
 public class RegistrationServlet extends HttpServlet {
@@ -70,8 +71,8 @@ public class RegistrationServlet extends HttpServlet {
         registration.setIsFirstTime(Byte.parseByte(isFirstTime));
         registration.setTshirtSize(tShirtSize);
         registration.setIsStudent(Byte.parseByte(isStudent));
-        registration.setNumberOfPaper(getNumberOfPapers(request,Boolean.parseBoolean(isStudent)));
-        registration.setRegistrationFees(calculateRegistrationFees(registration.getNumberOfPaper(),Boolean.parseBoolean(isStudent)));
+        registration.setNumberOfPaper(getNumberOfPapers(request, Boolean.parseBoolean(isStudent)));
+        registration.setRegistrationFees(calculateRegistrationFees(registration.getNumberOfPaper(), Boolean.parseBoolean(isStudent)));
         registration.setEventsById(createEvents(events));
         registration.setParticipantsByParticipantId(participant);
 
@@ -120,10 +121,10 @@ public class RegistrationServlet extends HttpServlet {
 
     }
 
-    private Collection createEvents(String[] events){
+    private Collection createEvents(String[] events) {
         Collection<Events> eventCollection = new ArrayList<Events>();
 
-        for(int i =0; i<events.length; i++){
+        for (int i = 0; i < events.length; i++) {
             Events event = new Events();
             // set the event id
             event.setId(Integer.parseInt(events[i]));
@@ -132,7 +133,6 @@ public class RegistrationServlet extends HttpServlet {
         }
         return eventCollection;
     }
-
 
 
     public void destroy() {

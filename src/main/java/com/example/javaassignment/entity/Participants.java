@@ -1,7 +1,6 @@
 package com.example.javaassignment.entity;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 public class Participants {
@@ -22,14 +21,17 @@ public class Participants {
     @Column(name = "phone_number")
     private String phoneNumber;
     @Basic
+    @Column(name = "address_id", insertable = false, updatable = false)
+    private int addressId;
+    @Basic
     @Column(name = "area_id")
     private int areaId;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id", nullable = false)
     private Addresses addressesByAddressId;
     @ManyToOne
-    @JoinColumn(name = "area_id", referencedColumnName = "id", nullable = false,insertable = false,updatable = false)
-    private Areas areasByAreaId;
+    @JoinColumn(name = "area_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    private Areas areasById;
 
 
     public int getId() {
@@ -72,6 +74,15 @@ public class Participants {
         this.phoneNumber = phoneNumber;
     }
 
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
+    }
+
     public int getAreaId() {
         return areaId;
     }
@@ -79,7 +90,6 @@ public class Participants {
     public void setAreaId(int areaId) {
         this.areaId = areaId;
     }
-
 
 
     @Override
@@ -90,6 +100,7 @@ public class Participants {
         Participants that = (Participants) o;
 
         if (id != that.id) return false;
+        if (addressId != that.addressId) return false;
         if (areaId != that.areaId) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
@@ -106,6 +117,7 @@ public class Participants {
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
+        result = 31 * result + addressId;
         result = 31 * result + areaId;
         return result;
     }
