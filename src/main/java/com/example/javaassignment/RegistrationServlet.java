@@ -45,7 +45,11 @@ public class RegistrationServlet extends HttpServlet {
         String isFirstTime = request.getParameter("isFirstTime");
         String tShirtSize = request.getParameter("tShirtSize");
         String[] events = request.getParameterValues("events");
+        // parse isStudent to boolean
+
         String isStudent = request.getParameter("isStudent");
+
+
 
 
         // Create a new address using setters
@@ -70,9 +74,13 @@ public class RegistrationServlet extends HttpServlet {
         Registrations registration = new Registrations();
         registration.setIsFirstTime(Byte.parseByte(isFirstTime));
         registration.setTshirtSize(tShirtSize);
+
+
         registration.setIsStudent(Byte.parseByte(isStudent));
-        registration.setNumberOfPaper(getNumberOfPapers(request, Boolean.parseBoolean(isStudent)));
-        registration.setRegistrationFees(calculateRegistrationFees(registration.getNumberOfPaper(), Boolean.parseBoolean(isStudent)));
+
+
+        registration.setNumberOfPaper(getNumberOfPapers(request,registration.getIsStudent()!=0));
+        registration.setRegistrationFees(calculateRegistrationFees(registration.getNumberOfPaper(), registration.getIsStudent()!=0));
         registration.setEventsById(createEvents(events));
         registration.setParticipantsByParticipantId(participant);
 
@@ -80,29 +88,6 @@ public class RegistrationServlet extends HttpServlet {
         RegistrationRepository registrationRepository = new RegistrationRepository();
         registrationRepository.save(registration);
 
-/*        DEBUGGING
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + message + "</h1>");
-        out.println("<p>First Name: " + firstName + "</p>");
-        out.println("<p>Last Name: " + lastName + "</p>");
-        out.println("<p>Area: " + area + "</p>");
-        out.println("<p>Address Line 1: " + addressLine1 + "</p>");
-        out.println("<p>Address Line 2: " + addressLine2 + "</p>");
-        out.println("<p>City: " + city + "</p>");
-        out.println("<p>State: " + state + "</p>");
-        out.println("<p>Country: " + country + "</p>");
-        out.println("<p>Postal Code: " + postalCode + "</p>");
-        out.println("<p>Email: " + email + "</p>");
-        out.println("<p>Phone: " + phone + "</p>");
-        out.println("<p>First Time: " + isFirstTime + "</p>");
-        out.println("<p>T-Shirt Size: " + tShirtSize + "</p>");
-        out.println("<p>First Time: " + registration.getIsFirstTime() + "</p>");
-        out.println("<p>Student Status: " + isStudent + "</p>");
-        out.println("<p>Number of Papers: " + registration.getNumberOfPaper() + "</p>");
-        out.println("<p>Registration Fees: " + registration.getRegistrationFees() + "</p>");
-        out.println("<p>Events: " + events + "</p>");
-        out.println("</body></html>");*/
 
         response.setStatus(HttpServletResponse.SC_OK);
 
@@ -117,6 +102,7 @@ public class RegistrationServlet extends HttpServlet {
     private String calculateRegistrationFees(String numberOfPapers, boolean isStudent) {
         int numberOfPapersInt = Integer.parseInt(numberOfPapers);
         int pricePerPaper = isStudent ? 300 : 500;
+
         return String.valueOf(numberOfPapersInt * pricePerPaper);
 
     }
